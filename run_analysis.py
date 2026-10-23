@@ -87,6 +87,21 @@ eyes = A.load_eyes(src)
 pts = A.to_patients(eyes)
 pts.to_csv(DATA / "patients_deidentified.csv", index=False)
 features_all = list(A.RETINAL) + list(A.CLINICAL)
+bins = [0, 5, 10, 15, 20, 25, 30]
+summary = {
+    "n_eyes": len(eyes), "n_patients": len(pts),
+    "syntax": {"median": float(pts.SYNTAX.median()), "q1": float(pts.SYNTAX.quantile(.25)),
+               "q3": float(pts.SYNTAX.quantile(.75)), "max": float(pts.SYNTAX.max()),
+               "n_gt22": int((pts.SYNTAX > 22).sum()),
+               "histogram": {f"{lo}–{hi}": int(((pts.SYNTAX >= lo) & (pts.SYNTAX < hi)).sum())
+                             for lo, hi in zip(bins[:-1], bins[1:])}},
+    "outcomes": {k: int(pts[k].sum()) for k in A.OUTCOMES},
+    "core_means": {f: [float(pts[f].mean()), float(pts[f].std())] for f in A.CORE},
+    "male": int(pts.Male.sum()), "age": [float(pts.Age.mean()), float(pts.Age.std())],
+    "diabetes": int(pts.Diabetes.sum()), "hypertension": int(pts.Hypertension.sum()),
+    "smoking": int(pts.Smoking.sum()), "provisional_fixes": len(A.PROVISIONAL_FIXES),
+}
+(TAB / "cohort_summary.json").write_text(json.dumps(summary, indent=2, ensure_ascii=False))
 n = len(pts)
 print(f"{len(eyes)} eyes, {n} patients")
 
@@ -190,7 +205,7 @@ for outcome, label in A.OUTCOMES.items():
                                                  "Specificity", "Balanced accuracy", "Brier"]]), ""]
 
 # ---------------------------------------------------------------- permutation test (is it better than chance?)
-rows = []
+rows, nulls = [], []
 for _, r in best.iterrows():
     if r["Feature set"] == "Clinical":
         continue
@@ -200,6 +215,9 @@ for _, r in best.iterrows():
     score, perm, p = permutation_test_score(est, X, y, cv=cv, scoring="roc_auc",
                                             n_permutations=200, random_state=A.SEED, n_jobs=-1)
     rows.append([A.OUTCOMES[r.Outcome], r["Feature set"], r.Model, score, np.mean(perm), p])
+    nulls.append({"outcome": r.Outcome, "feature_set": r["Feature set"], "model": r.Model,
+                  "auc": float(score), "p": float(p), "null": [round(float(v), 4) for v in perm]})
+(TAB / "permutation_null.json").write_text(json.dumps(nulls, ensure_ascii=False))
 perm_tab = pd.DataFrame(rows, columns=["Outcome", "Feature set", "Best model", "AUC (fixed params)",
                                        "Mean AUC, permuted labels", "Permutation p"])
 perm_tab.to_csv(TAB / "table4_permutation_test.csv", index=False)
@@ -341,6 +359,14 @@ for ax, (outcome, label) in zip(axes, A.OUTCOMES.items()):
     ax.set_title(label, loc="left", fontsize=10, color=INK); ax.set_xlabel("1 − specificity")
     ax.set_aspect("equal"); ax.legend(loc="lower right", fontsize=6.5)
 axes[0].set_ylabel("Sensitivity")
+roc_export = []
+for outcome in A.OUTCOMES:
+    for set_name in A.FEATURE_SETS:
+        b = best[(best.Outcome == outcome) & (best["Feature set"] == set_name)].iloc[0]
+        fpr, tpr, _ = roc_curve(pts[outcome].values, oof_store[(outcome, set_name, b.Model)])
+        roc_export.append({"outcome": outcome, "feature_set": set_name, "model": b.Model, "auc": round(b.AUC, 3),
+                           "fpr": [round(float(v), 4) for v in fpr], "tpr": [round(float(v), 4) for v in tpr]})
+(TAB / "roc_curves.json").write_text(json.dumps(roc_export, ensure_ascii=False))
 fig.suptitle("ROC curves, best model per feature set (nested CV, out-of-fold)", x=0.01, ha="left", fontsize=11)
 fig.tight_layout(); fig.savefig(FIG / "roc_curves.png", bbox_inches="tight"); plt.close(fig)
 
