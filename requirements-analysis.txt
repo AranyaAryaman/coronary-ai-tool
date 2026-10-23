@@ -1,0 +1,6 @@
+-r requirements.txt
+pandas==3.1.0
+scipy==1.18.1
+matplotlib==3.11.2
+shap==0.54.1
+openpyxl==3.1.5

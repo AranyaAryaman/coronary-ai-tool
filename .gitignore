@@ -1,0 +1,13 @@
+# Patient data and unpublished documents never leave this machine
+*.xlsx
+*.xls
+*.csv
+!outputs/tables/*.csv
+*.docx
+data/
+
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+.streamlit/secrets.toml

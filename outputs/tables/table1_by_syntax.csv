@@ -1,0 +1,30 @@
+Variable,SYNTAX ≤ 8 (n=51),SYNTAX > 8 (n=29),p,Test
+CRAE,31.00 [29.00–33.00],31.00 [28.50–32.00],0.343,Mann–Whitney
+CRVE,49.00 [46.25–51.00],49.50 [47.00–50.50],0.752,Mann–Whitney
+AVR (CRAE/CRVE),0.61 [0.59–0.68],0.61 [0.57–0.64],0.141,Mann–Whitney
+A-V ratio (fundoscopy),0.29 [0.29–0.33],0.29 [0.25–0.33],0.059,Mann–Whitney
+FAZ area (mm²),0.32 [0.23–0.45],0.36 [0.12–0.53],0.988,Mann–Whitney
+FAZ perimeter (mm),3.26 [2.69–3.88],3.43 [2.43–4.54],0.830,Mann–Whitney
+FAZ circularity,0.38 [0.33–0.42],0.33 [0.31–0.39],0.039,Mann–Whitney
+VD superficial plexus (%),27.00 [21.25–33.75],29.50 [12.50–35.00],0.968,Mann–Whitney
+VD deep plexus (%),13.50 [6.75–24.50],13.00 [2.00–24.00],0.548,Mann–Whitney
+VD outer retina (%),9.00 [3.75–18.50],6.00 [2.00–13.50],0.193,Mann–Whitney
+VD outer retina–CC (%),48.00 [42.50–51.50],48.00 [35.00–52.00],0.660,Mann–Whitney
+VD choriocapillaris (%),49.00 [35.75–52.50],49.50 [23.00–53.00],0.892,Mann–Whitney
+VD choroid (%),50.00 [46.50–51.00],51.00 [32.50–53.00],0.263,Mann–Whitney
+Central foveal thickness (µm),229.50 [214.75–237.00],230.00 [221.00–238.00],0.752,Mann–Whitney
+Subfoveal choroidal thickness (µm),244.50 [196.00–279.00],257.50 [196.50–297.00],0.465,Mann–Whitney
+Age (years),57.00 [48.50–61.50],55.00 [47.00–61.00],0.437,Mann–Whitney
+Male sex,39 (76%),21 (72%),0.790,Fisher
+Family history of CAD,6 (12%),1 (3%),0.412,Fisher
+Diabetes,17 (33%),13 (45%),0.344,Fisher
+Hypertension,29 (57%),15 (52%),0.815,Fisher
+Dyslipidaemia,5 (10%),5 (17%),0.483,Fisher
+Smoking,18 (35%),11 (38%),0.814,Fisher
+Alcohol,5 (10%),7 (24%),0.108,Fisher
+Heart rate (bpm),80.00 [70.00–88.00],80.00 [72.00–86.00],0.940,Mann–Whitney
+Systolic BP (mmHg),128.00 [120.00–138.50],126.00 [112.00–140.00],0.892,Mann–Whitney
+Diastolic BP (mmHg),78.00 [70.50–86.00],78.00 [70.00–84.00],0.296,Mann–Whitney
+Total cholesterol (mg/dL),167.00 [147.00–197.00],177.00 [145.00–190.00],0.663,Mann–Whitney
+Triglycerides (mg/dL),113.00 [101.00–133.00],113.00 [106.00–134.00],0.783,Mann–Whitney
+HDL (mg/dL),43.00 [40.00–46.00],44.50 [41.00–47.00],0.339,Mann–Whitney

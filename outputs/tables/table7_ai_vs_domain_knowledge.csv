@@ -1,0 +1,4 @@
+Retinal parameter,Expected direction (literature),AI (SHAP) direction,Agrees,AI rank (of 17),Spearman rho with SYNTAX
+AVR (CRAE/CRVE),−,−,Yes,1,-0.19274682727796613
+CRAE,−,−,Yes,5,-0.13960013958634093
+CRVE,+,+,Yes,7,0.03128265118642225

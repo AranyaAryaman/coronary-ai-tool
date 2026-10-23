@@ -1,0 +1,56 @@
+{
+  "features": [
+    "AVR",
+    "CRAE",
+    "CRVE"
+  ],
+  "labels": {
+    "AVR": "AVR (CRAE/CRVE)",
+    "CRAE": "CRAE",
+    "CRVE": "CRVE"
+  },
+  "eye_ranges": {
+    "AVR": [
+      0.47,
+      0.62,
+      0.9
+    ],
+    "CRAE": [
+      20.0,
+      31.0,
+      57.0
+    ],
+    "CRVE": [
+      20.0,
+      49.0,
+      64.0
+    ]
+  },
+  "n_patients": 80,
+  "models": {
+    "syntax_gt8": {
+      "label": "SYNTAX > 8 (median split)",
+      "model": "SVM (RBF)",
+      "auc": 0.469,
+      "auc_ci": [
+        0.34,
+        0.602
+      ],
+      "sensitivity": 0.021,
+      "specificity": 0.99,
+      "prevalence": 0.362
+    },
+    "syntax_ge11": {
+      "label": "SYNTAX ≥ 11 (upper quartile)",
+      "model": "LASSO logistic",
+      "auc": 0.463,
+      "auc_ci": [
+        0.321,
+        0.603
+      ],
+      "sensitivity": 0.37,
+      "specificity": 0.533,
+      "prevalence": 0.25
+    }
+  }
+}
